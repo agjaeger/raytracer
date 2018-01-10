@@ -1,5 +1,32 @@
-CPP_FILES = $(wildcard source/*.cpp)
-OUTPUT_FILE = build/raytracer
+TARGET_EXEC ?= raytracer.out
 
-compile:
-	clang++ -std=c++11 -o $(OUTPUT_FILE) $(CPP_FILES) -Iinclude/ -Ilib/  -Llib/ -lpng -lpngwriter -DNO_FREETYPE
+BUILD_DIR ?= ./build
+SRC_DIRS ?= ./source
+
+SRCS := $(shell find $(SRC_DIRS) -name *.cpp -or -name *.c -or -name *.s)
+OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+DEPS := $(OBJS:.o=.d)
+
+CXX := clang++
+
+INC_DIRS := $(shell find $(SRC_DIRS) -type d)
+INC_FLAGS := $(addprefix -I,$(INC_DIRS))
+
+CPPFLAGS ?= $(INC_FLAGS) -MMD -MP  -Iinclude/ -Ilib/  -Llib/ -lpng -lpngwriter -DNO_FREETYPE
+
+$(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
+	$(CXX) $(OBJS) -o $@ $(LDFLAGS) $(CPPFLAGS)
+
+# c++ source
+$(BUILD_DIR)/%.cpp.o: %.cpp
+	$(MKDIR_P) $(dir $@)
+	$(CXX) $(CPPFLAGS) -c $< -o $@ 
+
+.PHONY: clean
+
+clean:
+	$(RM) -r $(BUILD_DIR)
+
+-include $(DEPS)
+
+MKDIR_P ?= mkdir -p

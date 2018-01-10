@@ -15,7 +15,7 @@ int main() {
 	for (i = 1; i <= 300; i++) {
 		y = 150+100*sin((double)i*9/300.0);
      	
-		png.plot(i,y, 0.0, 0.0, 1.0);
+		png.plot(i,y, 1.0, 0.0, 1.0);
 	}
      
 	png.close();
