@@ -19,7 +19,7 @@ public:
 	
 public:
 	int radius;
-	Vector3 color;	
+	Vector3 color;
 	Transform transform;	
 };
 

@@ -22,6 +22,22 @@ Vector3::Vector3(double x, double y, double z) {
 	this->z = z;
 }
 
+double Vector3::magnitude() {
+	return sqrt(
+		this->x * this->x + 
+		this->y * this->y + 
+		this->z * this->z
+	);
+}
+
+Vector3 Vector3::normalize() {
+	return *this / this->magnitude();
+}
+
+double Vector3::dot(Vector3 lhs, Vector3 rhs) {
+	return lhs.x*rhs.x + lhs.y*rhs.y + lhs.z*rhs.z;
+}
+
 Vector3 Vector3::operator+(const Vector3& right) {
 	Vector3 result (
 		this->x + right.x,
@@ -42,21 +58,21 @@ Vector3 Vector3::operator-(const Vector3& right) {
 	return result;
 }
 
-Vector3 Vector3::operator*(const Vector3& right) {
+Vector3 Vector3::operator*(const double& right) {
 	Vector3 result (
-		this->x * right.x,
-		this->y * right.y,
-		this->z * right.z	
+		this->x * right,
+		this->y * right,
+		this->z * right	
 	);
 	
 	return result;
 }
 
-Vector3 Vector3::operator/(const Vector3& right) {
+Vector3 Vector3::operator/(const double& right) {
 	Vector3 result (
-		this->x / right.x,
-		this->y / right.y,
-		this->z / right.z	
+		this->x / right,
+		this->y / right,
+		this->z / right	
 	);
 	
 	return result;

@@ -7,16 +7,23 @@
 
 #pragma once
 
+#include <cmath>
+
 class Vector3 {
 public:
 	Vector3();
 	Vector3(double x, double y, double z);
 	
-	// Math operations for Vector3 to Vector3
+	double magnitude();
+	Vector3 normalize();
+	
+	static double dot(Vector3 lhs, Vector3 rhs);
+	
+	// algebraic operators for Vector3 to Vector3
 	Vector3 operator+(const Vector3& right);
 	Vector3 operator-(const Vector3& right);
-	Vector3 operator*(const Vector3& right);
-	Vector3 operator/(const Vector3& right);
+	Vector3 operator*(const double& right);
+	Vector3 operator/(const double& right);
 
 	// static properties
 	static Vector3 back;

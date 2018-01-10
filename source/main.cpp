@@ -6,16 +6,33 @@
 #include <pngwriter.h>
 #include <iostream>
 
-int main() {
-	int i;
-	int y;
+#include "Ray.h"
+#include "Sphere.h"
+#include "Vector3.h"
 
-	pngwriter png(300,300,0,"test.png");
-   
-	for (i = 1; i <= 300; i++) {
-		y = 150+100*sin((double)i*9/300.0);
-     	
-		png.plot(i,y, 1.0, 0.0, 1.0);
+int main() {
+	int screenWidth = 300;
+	int screenHeight = 300;
+
+	int fov = 90;
+	
+	Sphere s;
+	s.transform.position = Vector3(0, 0, -5);
+	s.radius = 1;
+	s.color = Vector3(1, 0, 0);
+
+	pngwriter png(screenWidth, screenHeight,0,"test.png");
+	
+	for (int i = 1; i <= screenWidth; i++) {
+		for (int j = 1; j <= screenHeight; j++) {
+			Ray r ((double) i, (double) j, screenWidth, screenHeight);
+			
+			if (s.intersect(r)) {
+				png.plot(i, j, s.color.x, s.color.y, s.color.z); 
+			} else {
+				png.plot(i, j, 1, 0, 1);
+			}
+		}
 	}
      
 	png.close();

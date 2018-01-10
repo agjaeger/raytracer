@@ -7,9 +7,11 @@
 
 #pragma once
 
+#include "Vector3.h"
+
 class Ray {
 public:
-	Ray();
+	Ray(double x, double y, int sceneWidth, int sceneHeight);
 	
 public:
 	Vector3 origin;
