@@ -7,6 +7,12 @@ Transform::Transform() {
 	this->scale = Vector3::zero;
 }
 
+Transform::Transform (Vector3 position) {
+	this->position = position;
+	this->rotation = Vector3::zero;
+	this->scale = Vector3::zero;
+}
+
 Transform::Transform(
 	Vector3 position,
 	Vector3 rotation,

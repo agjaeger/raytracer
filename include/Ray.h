@@ -7,11 +7,15 @@
 
 #pragma once
 
+#include <cmath>
+
 #include "Vector3.h"
+#include "MathUtils.h"
+#include "Camera.h"
 
 class Ray {
 public:
-	Ray(double x, double y, int sceneWidth, int sceneHeight);
+	Ray(double x, double y, Camera c);
 	
 public:
 	Vector3 origin;

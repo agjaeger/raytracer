@@ -77,3 +77,11 @@ Vector3 Vector3::operator/(const double& right) {
 	
 	return result;
 }
+
+bool Vector3::operator==(const Vector3& right) {
+	bool sameX = this->x && right.x;
+	bool sameY = this->y && right.y;
+	bool sameZ = this->z && right.z;
+	
+	return sameX && sameY && sameZ;
+}

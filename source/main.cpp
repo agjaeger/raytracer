@@ -5,33 +5,51 @@
  
 #include <pngwriter.h>
 #include <iostream>
+#include <algorithm>
+#include <vector>
 
 #include "Ray.h"
 #include "Sphere.h"
 #include "Vector3.h"
 
-int main() {
-	int screenWidth = 300;
-	int screenHeight = 300;
-
-	int fov = 90;
-	
+struct Intersection {
+	double distance;
 	Sphere s;
-	s.transform.position = Vector3(0, 0, -5);
-	s.radius = 1;
-	s.color = Vector3(1, 0, 0);
+};
 
-	pngwriter png(screenWidth, screenHeight,0,"test.png");
+bool compareIntersection(const Intersection &a, const Intersection &b) {
+	return a.distance < b.distance;
+}
+
+int main() {
+	Camera c;
 	
-	for (int i = 1; i <= screenWidth; i++) {
-		for (int j = 1; j <= screenHeight; j++) {
-			Ray r ((double) i, (double) j, screenWidth, screenHeight);
+	c.screenWidth = 600;
+	c.screenHeight = 500;
+	c.fov = 90;
+	c.backgroundColor = Vector3(0.1, 1.0, 0.6);
+	
+	std::vector<Sphere> spheres = {
+		Sphere(Transform(Vector3(0.0,0.0,-2.0)), Vector3(1.0,0.0,0.0), 1),
+		Sphere(Transform(Vector3(1.0,-1.0,-5.0)), Vector3(1.0,1.0,1.0), 1),
+		Sphere(Transform(Vector3(2.0,2.0,-5.0)), Vector3(1.0,0.4,0.0), 1)
+	};
+
+	pngwriter png (c.screenWidth, c.screenHeight, 0, "test.png");
+	
+	for (int i = 1; i <= c.screenWidth; i++) {
+		for (int j = 1; j <= c.screenHeight; j++) {
+			Ray r ((double) i, (double) j, c);
 			
-			if (s.intersect(r)) {
-				png.plot(i, j, s.color.x, s.color.y, s.color.z); 
-			} else {
-				png.plot(i, j, 1, 0, 1);
+			Vector3 pixelColor = c.backgroundColor;;
+
+			for (int s = 0; s < spheres.size(); s++) {
+				if (spheres[s].intersect(r)) {
+					pixelColor = spheres[s].color;
+				}
 			}
+			
+			png.plot(i, j, pixelColor.x, pixelColor.y, pixelColor.z);
 		}
 	}
      

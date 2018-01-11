@@ -7,6 +7,9 @@
 
 #pragma once
 
+#include <cmath>
+#include <algorithm>
+
 #include "Transform.h"
 #include "Vector3.h"
 #include "Ray.h"
@@ -14,6 +17,7 @@
 class Sphere {
 public:
 	Sphere();
+	Sphere(Transform t, Vector3 c, int r);
 	
 	bool intersect(Ray ray);
 	

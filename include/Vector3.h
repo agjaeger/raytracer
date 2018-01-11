@@ -24,7 +24,9 @@ public:
 	Vector3 operator-(const Vector3& right);
 	Vector3 operator*(const double& right);
 	Vector3 operator/(const double& right);
-
+	
+	bool operator==(const Vector3& rhs);
+	
 	// static properties
 	static Vector3 back;
 	static Vector3 down;
