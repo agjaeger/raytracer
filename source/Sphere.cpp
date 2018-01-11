@@ -3,9 +3,9 @@
 
 Sphere::Sphere() {}
 
-Sphere::Sphere(Transform t, Vector3 c, int r) {
+Sphere::Sphere(Transform t, Material m, int r) {
 	this->transform = t;
-	this->color = c;
+	this->material = m;
 	this->radius = r;
 }
 
@@ -37,4 +37,8 @@ bool Sphere::intersect(Ray ray) {
 	}
 	
 	return true;
+}
+
+Vector3 Sphere::surfaceNormal(Vector3 point) {
+	(point - this->transform.position).normalize();
 }

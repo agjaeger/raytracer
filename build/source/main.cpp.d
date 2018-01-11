@@ -1,15 +1,22 @@
-build/./source/main.cpp.o: source/main.cpp include/Ray.h \
-  include/Vector3.h include/MathUtils.h include/Camera.h \
-  include/Sphere.h include/Transform.h
+build/./source/main.cpp.o: source/main.cpp include/Material.h \
+  include/Vector3.h include/Ray.h include/MathUtils.h include/Camera.h \
+  include/SceneObject.h include/Transform.h include/Plane.h \
+  include/Sphere.h
 
-include/Ray.h:
+include/Material.h:
 
 include/Vector3.h:
+
+include/Ray.h:
 
 include/MathUtils.h:
 
 include/Camera.h:
 
-include/Sphere.h:
+include/SceneObject.h:
 
 include/Transform.h:
+
+include/Plane.h:
+
+include/Sphere.h:

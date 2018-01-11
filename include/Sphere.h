@@ -10,20 +10,22 @@
 #include <cmath>
 #include <algorithm>
 
+#include "SceneObject.h"
 #include "Transform.h"
+#include "Material.h"
+
 #include "Vector3.h"
 #include "Ray.h"
 
-class Sphere {
+class Sphere : public SceneObject {
 public:
 	Sphere();
-	Sphere(Transform t, Vector3 c, int r);
+	Sphere(Transform t, Material m, int r);
 	
 	bool intersect(Ray ray);
+	Vector3 surfaceNormal(Vector3 point);
 	
 public:
-	int radius;
-	Vector3 color;
-	Transform transform;	
+	int radius;	
 };
 
