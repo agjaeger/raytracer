@@ -43,6 +43,22 @@
 					"albedo": 0.9,
 					"diffuse": [1.0, 1.0, 0.0]
 				}
+			}, 
+			
+			{
+				"primitive": "sphere",
+				"radius": 0.2,
+				
+				"transform": {
+					"position": [-1.0, -2.0, -3.0],
+					"rotation": [0.0, 0.0, 0.0],
+					"scale": [1.0, 1.0, 1.0]
+				},
+				
+				"material": {
+					"albedo": 0.9,
+					"diffuse": [1.0, 1.0, 0.0]
+				}
 			}
 		]
 	}

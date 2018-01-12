@@ -6,7 +6,7 @@ Sphere::Sphere() {}
 Sphere::Sphere (
 	Transform t,
 	Material m,
-	int r
+	double r
 ) {
 	this->transform = t;
 	this->material = m;

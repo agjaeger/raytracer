@@ -20,12 +20,12 @@
 class Sphere : public SceneObject {
 public:
 	Sphere();
-	Sphere(Transform t, Material m, int r);
+	Sphere(Transform t, Material m, double r);
 	
 	bool intersect(Ray ray, double &distOut);
 	Vector3 surfaceNormal(Vector3 point);
 	
 public:
-	int radius;	
+	double radius;	
 };
 
