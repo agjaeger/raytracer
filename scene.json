@@ -18,7 +18,7 @@
 				"normal": [0.0, 0.75, 0.0],
 				
 				"transform": {
-					"position": [0.0, 1.0, -5.0],
+					"position": [0.0, 0.0, 1.0],
 					"rotation": [0.0, 0.0, 0.0],
 					"scale": [1.0, 1.0, 1.0]
 				},
@@ -31,26 +31,26 @@
 			
 			{
 				"primitive": "sphere",
-				"radius": 1.0,
+				"radius": 0.2,
 				
 				"transform": {
-					"position": [1.0, 0.0, -5.0],
+					"position": [1, -0.5, -4.0],
 					"rotation": [0.0, 0.0, 0.0],
 					"scale": [1.0, 1.0, 1.0]
 				},
 				
 				"material": {
 					"albedo": 0.9,
-					"diffuse": [1.0, 1.0, 0.0]
+					"diffuse": [1.0, 0.5, 0.75]
 				}
-			}, 
+			},
 			
 			{
 				"primitive": "sphere",
-				"radius": 0.2,
+				"radius": 1.0,
 				
 				"transform": {
-					"position": [-1.0, -2.0, -3.0],
+					"position": [1.0, 0.0, -5.0],
 					"rotation": [0.0, 0.0, 0.0],
 					"scale": [1.0, 1.0, 1.0]
 				},

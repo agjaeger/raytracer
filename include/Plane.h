@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <algorithm>
+
 #include "SceneObject.h"
 #include "Ray.h"
 #include "Transform.h"

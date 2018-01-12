@@ -24,13 +24,14 @@ Plane::intersect (
 		return false;
 
 	Vector3 delta = this->transform.position - r.origin;
-
 	double deltaDistance = Vector3::dot(delta, this->normal) / denom;
 
 	if (deltaDistance >= 0.0) {
 		distOut = deltaDistance;
 		return true;
 	}
+	
+	return false;
 }
 
 Vector3

@@ -2,6 +2,11 @@
 #pragma once
 
 #include <vector>
+#include <fstream>
+
+#include "logger/easyloggingpp.h"
+#include "json/json.hpp"
+using json = nlohmann::json;
 
 #include "Camera.h"
 #include "SceneObject.h"
@@ -11,10 +16,6 @@
 
 #include "Sphere.h" // only here for json loading, I should try to get rid of this
 #include "Plane.h" // only here for json loading, I should try to get rid of this
-
-#include <fstream>
-#include "json/json.hpp"
-using json = nlohmann::json;
 
 class Scene {
 public:

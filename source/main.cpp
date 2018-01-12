@@ -1,7 +1,12 @@
-#include <pngwriter.h>
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <string> 
+#include <time.h>
+
+#include <pngwriter.h>
+#include "logger/easyloggingpp.h"
+INITIALIZE_EASYLOGGINGPP
 
 #include "Material.h"
 #include "Ray.h"
@@ -54,10 +59,17 @@ getColor (
 	return color;	
 }
 
+std::string versionString = "v0.0.1"; 
+
 int
 main () {
-	Scene scene ("scene.json");
+	clock_t appStartTime;
+	appStartTime = clock();
+	
+	LOG(INFO) << "Alex's Raytracer" << " " << versionString;
 
+	Scene scene ("scene.json");
+	
 	pngwriter png (scene.camera.screenWidth, scene.camera.screenHeight, 0, "test.png");
 
 	for (int i = 1; i <= scene.camera.screenWidth; i++) {
@@ -75,6 +87,9 @@ main () {
 	}
 
 	png.close();
+
+	clock_t appDeltaTime = clock() - appStartTime;
+	LOG(INFO) << "Application Run Length:" << " " << (float) appDeltaTime / CLOCKS_PER_SEC << " " << "seconds";
 
 	return 0;
 }

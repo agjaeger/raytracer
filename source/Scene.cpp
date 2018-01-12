@@ -4,6 +4,8 @@
 Scene::Scene () {}
 
 Scene::Scene (std::string jsonPath) {
+	LOG(INFO) << "Reading scene file located at" << " " << jsonPath;
+	
 	std::ifstream jsonStream (jsonPath);
 	json jsonObject;
 	jsonStream >> jsonObject;
@@ -74,7 +76,6 @@ Scene::Scene (std::string jsonPath) {
 			objects.push_back(new Plane(t, m, n));
 		}
 	}
-	
 }
 
 std::vector<Intersection>
@@ -84,13 +85,16 @@ Scene::trace (Ray r) {
 	for (int s = 0; s < this->objects.size(); s++) {
 		double dist;
 		if (this->objects[s]->intersect(r, dist)) {
-			Intersection intersection;
-			intersection.distance = dist;
-			intersection.s = this->objects[s];
-								
+			Intersection intersection (
+				dist,
+				this->objects[s]
+			);
+			
 			intersections.push_back(intersection);
 		}
 	}
+	
+	std::sort(intersections.begin(), intersections.end());
 	
 	return intersections;
 }
