@@ -81,7 +81,7 @@ main () {
 	sphere2.albedo = 0.9;
 
 	Material sphere3;
-	sphere3.diffuseColor = Vector3(1.0, 1.0, 0.0);
+	sphere3.diffuseColor = Vector3(0.0, 1.0, 0.0);
 	sphere3.albedo = 0.9;
 
 	Material plane;
@@ -89,10 +89,10 @@ main () {
 	plane.albedo = 0.9;
 
 	std::vector<SceneObject*> sceneObjects = {
-		new Plane(Transform(Vector3(0.0,3.0,-5.0)), Vector3(0.0, 0.75, 0.0), plane),
-		new Sphere(Transform(Vector3(0.0,0.0,-2.0)), sphere1, 1),
-		new Sphere(Transform(Vector3(1.0,-1.0,-5.0)), sphere2, 1),
-		new Sphere(Transform(Vector3(2.0,2.0,-5.0)), sphere3, 1)
+		new Plane(Transform(Vector3(0.0,1.0,-5.0)), Vector3(0.0, 0.75, 0.0), plane),
+		new Sphere(Transform(Vector3(0.0,0.0,-5.0)), sphere1, 1),
+		new Sphere(Transform(Vector3(1.0,-1.0,-3.0)), sphere2, 1),
+		new Sphere(Transform(Vector3(-1.0,-3.0,-3.0)), sphere3, 1)
 	};
 
 	Scene scene;
