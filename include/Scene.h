@@ -9,10 +9,17 @@
 #include "Ray.h"
 #include "Light.h"
 
+#include "Sphere.h" // only here for json loading, I should try to get rid of this
+#include "Plane.h" // only here for json loading, I should try to get rid of this
+
+#include <fstream>
+#include "json/json.hpp"
+using json = nlohmann::json;
+
 class Scene {
 public:
 	Scene();
-	Scene(int w, int h, double fov);
+	Scene (std::string jsonPath);
 		
 	void setObjects(std::vector<SceneObject*> objects);
 	void setLight(Light l);
@@ -20,14 +27,11 @@ public:
 	
 	std::vector<Intersection> trace(Ray r);
 	void render();
-	
+
 public:
-	int renderWidth;
-	int renderHeight;
-	double fov;
 	double shadowBias = 1e-13;
-	Camera camera;
 	
 	std::vector<SceneObject*> objects;
+	Camera camera;
 	Light light;
 };

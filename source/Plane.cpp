@@ -3,8 +3,8 @@
 
 Plane::Plane (
 	Transform t,
-	Vector3 normal,
-	Material m
+	Material m,
+	Vector3 normal
 ) {
 	this->transform = t;
 	this->normal = normal;

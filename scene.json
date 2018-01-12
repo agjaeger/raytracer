@@ -1,0 +1,50 @@
+{
+	"scene": {
+		"camera": {
+			"renderSize": [1920, 1080],
+			"fov": 90.0,
+			"backgroundColor": [0.0, 1.0, 1.0]
+		},
+
+		"light": {
+			"color": [1.0, 1.0, 1.0],
+			"direction": [0.5, 0.5, -1.0],
+			"intensity": 10.0
+		},
+		
+		"objects": [
+			{
+				"primitive": "plane",
+				"normal": [0.0, 0.75, 0.0],
+				
+				"transform": {
+					"position": [0.0, 1.0, -5.0],
+					"rotation": [0.0, 0.0, 0.0],
+					"scale": [1.0, 1.0, 1.0]
+				},
+				
+				"material": {
+					"albedo": 0.9,
+					"diffuse": [0.0, 1.0, 0.0]
+				}			
+			},
+			
+			{
+				"primitive": "sphere",
+				"radius": 1.0,
+				
+				"transform": {
+					"position": [1.0, 0.0, -5.0],
+					"rotation": [0.0, 0.0, 0.0],
+					"scale": [1.0, 1.0, 1.0]
+				},
+				
+				"material": {
+					"albedo": 0.9,
+					"diffuse": [1.0, 1.0, 0.0]
+				}
+			}
+		]
+	}
+}
+

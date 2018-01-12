@@ -1,8 +1,3 @@
-
-/*
- * Hello World
- */
-
 #include <pngwriter.h>
 #include <iostream>
 #include <algorithm>
@@ -61,52 +56,15 @@ getColor (
 
 int
 main () {
-	Camera c;
-	c.screenWidth = 600;
-	c.screenHeight = 300;
-	c.fov = 90;
-	c.backgroundColor = Vector3(0.1, 1.0, 0.6);
+	Scene scene ("scene.json");
 
-	Light l;
-	l.direction = Vector3(0.5, 0.5, -1.0);
-	l.color = Vector3(1.0, 1.0, 1.0);
-	l.intensity = 8;
+	pngwriter png (scene.camera.screenWidth, scene.camera.screenHeight, 0, "test.png");
 
-	Material sphere1;
-	sphere1.diffuseColor = Vector3(0.1, 0.0, 1.0);
-	sphere1.albedo = 0.9;
-
-	Material sphere2;
-	sphere2.diffuseColor = Vector3(1.0, 0.0, 0.5);
-	sphere2.albedo = 0.9;
-
-	Material sphere3;
-	sphere3.diffuseColor = Vector3(0.0, 1.0, 0.0);
-	sphere3.albedo = 0.9;
-
-	Material plane;
-	plane.diffuseColor = Vector3(0.4, 0.4, 0.4);
-	plane.albedo = 0.9;
-
-	std::vector<SceneObject*> sceneObjects = {
-		new Plane(Transform(Vector3(0.0,1.0,-5.0)), Vector3(0.0, 0.75, 0.0), plane),
-		new Sphere(Transform(Vector3(0.0,0.0,-5.0)), sphere1, 1),
-		new Sphere(Transform(Vector3(1.0,-1.0,-3.0)), sphere2, 1),
-		new Sphere(Transform(Vector3(-1.0,-3.0,-3.0)), sphere3, 1)
-	};
-
-	Scene scene;
-	scene.objects = sceneObjects;
-	scene.light = l;
-	scene.camera = c;
-
-	pngwriter png (c.screenWidth, c.screenHeight, 0, "test.png");
-
-	for (int i = 1; i <= c.screenWidth; i++) {
-		for (int j = 1; j <= c.screenHeight; j++) {
-			Ray r = Ray::createPrimaryRay((double) i, (double) j, c);
+	for (int i = 1; i <= scene.camera.screenWidth; i++) {
+		for (int j = 1; j <= scene.camera.screenHeight; j++) {
+			Ray r = Ray::createPrimaryRay((double) i, (double) j, scene.camera);
 			std::vector<Intersection> intersections = scene.trace(r);
-			Vector3 pixelColor = c.backgroundColor;
+			Vector3 pixelColor = scene.camera.backgroundColor;
 						
 			for (Intersection intersection : intersections) {
 				pixelColor = getColor(scene, r, intersection);
