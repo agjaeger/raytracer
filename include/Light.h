@@ -9,11 +9,7 @@
 
 #include "Vector3.h"
 
-class Light {
-public:
-	Light();
-
-public:
+struct Light {
 	Vector3 direction;
 	Vector3 color;
 	double intensity;

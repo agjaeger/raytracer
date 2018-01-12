@@ -3,11 +3,7 @@
 
 #include "Vector3.h"
 
-class Camera {
-public:
-	Camera();
-	
-public:
+struct Camera {
 	int fov;
 	
 	int screenWidth;

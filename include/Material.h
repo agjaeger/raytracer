@@ -9,11 +9,7 @@
 
 #include "Vector3.h"
 
-class Material {
-public:
-	Material();
-
-public:
+struct Material {
 	Vector3 diffuseColor;
 	double albedo;
 };
