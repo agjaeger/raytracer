@@ -75,6 +75,19 @@ Vector3::operator- (
 }
 
 Vector3
+Vector3::operator * (
+	const Vector3& right
+) {
+	Vector3 result (
+		this->x * right.x,
+		this->y * right.y,
+		this->z * right.z
+	);
+	
+	return result;
+}
+
+Vector3
 Vector3::operator* (
 	const double& right
 ) {

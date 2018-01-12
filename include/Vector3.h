@@ -22,6 +22,7 @@ public:
 	// algebraic operators for Vector3 to Vector3
 	Vector3 operator+(const Vector3& right);
 	Vector3 operator-(const Vector3& right);
+	Vector3 operator*(const Vector3& right);
 	Vector3 operator*(const double& right);
 	Vector3 operator/(const double& right);
 

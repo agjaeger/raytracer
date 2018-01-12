@@ -9,11 +9,13 @@
 
 #include "Transform.h"
 #include "Material.h"
+#include "Vector3.h"
 #include "Ray.h"
 
 class SceneObject {
 public:
-	virtual bool intersect(Ray r) = 0;
+	virtual bool intersect(Ray r, double &distOut) = 0;
+	virtual Vector3 surfaceNormal(Vector3 surfacePoint) = 0;
 
 public:
 	Transform transform;

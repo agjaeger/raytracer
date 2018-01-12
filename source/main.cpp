@@ -11,6 +11,7 @@
 #include "Material.h"
 #include "Ray.h"
 #include "Vector3.h"
+#include "MathUtils.h"
 
 #include "SceneObject.h"
 #include "Plane.h"
@@ -20,15 +21,32 @@
 
 struct Intersection {
 	double distance;
-	Sphere s;
+	SceneObject *s;
 };
 
-bool
-compareIntersection (
-	const Intersection &a,
-	const Intersection &b
+Vector3
+getColor (
+	Light light,
+	Ray ray,
+	Intersection intersection
 ) {
-	return a.distance < b.distance;
+	Vector3 hitPoint = ray.origin + (ray.direction * intersection.distance);
+	Vector3 surfaceNormal = intersection.s->surfaceNormal(hitPoint);
+	Vector3 directionToLight = light.direction.normalize() * -1.0;
+	
+	double lightPower = (Vector3::dot(surfaceNormal, directionToLight)) * light.intensity;	
+	double lightReflected = intersection.s->material.albedo / MathUtils::PI;
+	
+	Vector3 color = intersection.s->material.diffuseColor;
+	color = color * light.color;
+	color = color * lightPower;
+	color = color * lightReflected;
+	
+	color.x = std::max(0.0, std::min(color.x, 1.0));
+	color.y = std::max(0.0, std::min(color.y, 1.0));
+	color.z = std::max(0.0, std::min(color.z, 1.0));
+
+	return color;	
 }
 
 int
@@ -39,21 +57,26 @@ main () {
 	c.fov = 90;
 	c.backgroundColor = Vector3(0.1, 1.0, 0.6);
 
+	Light l;
+	l.direction = Vector3(0.5, 0.5, -1.0);
+	l.color = Vector3(1.0, 1.0, 1.0);
+	l.intensity = 8;
+
 	Material sphere1;
 	sphere1.diffuseColor = Vector3(0.1, 0.0, 1.0);
-	sphere1.albedo = 0.1;
+	sphere1.albedo = 0.9;
 
 	Material sphere2;
 	sphere2.diffuseColor = Vector3(1.0, 0.0, 0.5);
-	sphere2.albedo = 0.1;
+	sphere2.albedo = 0.9;
 
 	Material sphere3;
 	sphere3.diffuseColor = Vector3(1.0, 1.0, 0.0);
-	sphere3.albedo = 0.1;
+	sphere3.albedo = 0.9;
 
 	Material plane;
 	plane.diffuseColor = Vector3(0.4, 0.4, 0.4);
-	plane.albedo = 0.1;
+	plane.albedo = 0.9;
 
 	std::vector<SceneObject*> sceneObjects = {
 		new Plane(Transform(Vector3(0.0,3.0,-5.0)), Vector3(0.0, 0.75, 0.0), plane),
@@ -71,8 +94,14 @@ main () {
 			Vector3 pixelColor = c.backgroundColor;;
 
 			for (int s = 0; s < sceneObjects.size(); s++) {
-				if (sceneObjects[s]->intersect(r)) {
-					pixelColor = sceneObjects[s]->material.diffuseColor;
+				double dist;
+				if (sceneObjects[s]->intersect(r, dist)) {
+					Intersection intersection;
+					intersection.distance = dist;
+					intersection.s = sceneObjects[s];
+										
+					pixelColor = getColor(l, r, intersection);
+					//pixelColor = sceneObjects[s]->material.diffuseColor;
 				}
 			}
 

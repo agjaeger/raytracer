@@ -13,8 +13,11 @@ Plane::Plane (
 
 bool
 Plane::intersect (
-	Ray r
+	Ray r,
+	double &distOut
 ) {
+	distOut = -1.0;
+	
 	double denom = Vector3::dot(this->normal, r.direction);
 
 	if (denom <= 1e-6)
@@ -24,7 +27,16 @@ Plane::intersect (
 
 	double deltaDistance = Vector3::dot(delta, this->normal) / denom;
 
-	if (deltaDistance >= 0.0)
+	if (deltaDistance >= 0.0) {
+		distOut = deltaDistance;
 		return true;
+	}
+}
+
+Vector3
+Plane::surfaceNormal (
+	Vector3 surfacePoint
+) {
+	return this->normal * -1;
 }
 

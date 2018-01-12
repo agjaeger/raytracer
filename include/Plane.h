@@ -15,7 +15,9 @@ class Plane : public SceneObject {
 
 public:
 	Plane(Transform t, Vector3 normal, Material m);
-	bool intersect(Ray r);
+
+	bool intersect(Ray r, double &distOut);
+	Vector3 surfaceNormal(Vector3 surfacePoint);
 
 public:
 	Vector3 normal;

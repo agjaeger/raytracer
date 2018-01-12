@@ -22,7 +22,7 @@ public:
 	Sphere();
 	Sphere(Transform t, Material m, int r);
 	
-	bool intersect(Ray ray);
+	bool intersect(Ray ray, double &distOut);
 	Vector3 surfaceNormal(Vector3 point);
 	
 public:

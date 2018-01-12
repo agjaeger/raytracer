@@ -15,8 +15,11 @@ Sphere::Sphere (
 
 bool
 Sphere::intersect (
-	Ray ray
+	Ray ray,
+	double &distOut
 ) {
+	distOut = -1.0;
+	
 	Vector3 dist = this->transform.position - ray.origin;
 
 	double adjSideLength = Vector3::dot(dist, ray.direction);
@@ -43,12 +46,13 @@ Sphere::intersect (
 			return false;
 	}
 
+	distOut = t0;
 	return true;
 }
 
 Vector3
 Sphere::surfaceNormal (
-	Vector3 point
+	Vector3 surfacePoint
 ) {
-	(point - this->transform.position).normalize();
+	return (surfacePoint - this->transform.position).normalize();
 }
