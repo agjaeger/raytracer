@@ -15,7 +15,9 @@
 
 class Ray {
 public:
-	Ray(double x, double y, Camera c);
+	Ray(Vector3 origin, Vector3 direction);
+	
+	static Ray createPrimaryRay(double x, double y, Camera c);
 	
 public:
 	Vector3 origin;

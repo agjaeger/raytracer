@@ -13,32 +13,42 @@
 #include "Vector3.h"
 #include "MathUtils.h"
 
+#include "Scene.h"
+#include "Intersection.h"
 #include "SceneObject.h"
 #include "Plane.h"
 #include "Sphere.h"
 
 #include "Light.h"
 
-struct Intersection {
-	double distance;
-	SceneObject *s;
-};
-
 Vector3
 getColor (
-	Light light,
-	Ray ray,
+	Scene scene,
+	Ray primaryRay,
 	Intersection intersection
 ) {
-	Vector3 hitPoint = ray.origin + (ray.direction * intersection.distance);
+	Vector3 hitPoint = primaryRay.origin + (primaryRay.direction * intersection.distance);
 	Vector3 surfaceNormal = intersection.s->surfaceNormal(hitPoint);
-	Vector3 directionToLight = light.direction.normalize() * -1.0;
+	Vector3 directionToLight = scene.light.direction.normalize() * -1.0;
 	
-	double lightPower = (Vector3::dot(surfaceNormal, directionToLight)) * light.intensity;	
+	Ray shadowRay (
+		hitPoint + (surfaceNormal * scene.shadowBias), 
+		directionToLight
+	);
+	
+	std::vector<Intersection> intersections = scene.trace(shadowRay);
+	bool inLight = intersections.empty();
+	
+	double lightIntensity = 0.0;
+	
+	if (inLight)
+		lightIntensity = scene.light.intensity;
+		
+	double lightPower = (Vector3::dot(surfaceNormal, directionToLight)) * lightIntensity;	
 	double lightReflected = intersection.s->material.albedo / MathUtils::PI;
 	
 	Vector3 color = intersection.s->material.diffuseColor;
-	color = color * light.color;
+	color = color * scene.light.color;
 	color = color * lightPower;
 	color = color * lightReflected;
 	
@@ -85,24 +95,21 @@ main () {
 		new Sphere(Transform(Vector3(2.0,2.0,-5.0)), sphere3, 1)
 	};
 
+	Scene scene;
+	scene.objects = sceneObjects;
+	scene.light = l;
+	scene.camera = c;
+
 	pngwriter png (c.screenWidth, c.screenHeight, 0, "test.png");
 
 	for (int i = 1; i <= c.screenWidth; i++) {
 		for (int j = 1; j <= c.screenHeight; j++) {
-			Ray r ((double) i, (double) j, c);
-
-			Vector3 pixelColor = c.backgroundColor;;
-
-			for (int s = 0; s < sceneObjects.size(); s++) {
-				double dist;
-				if (sceneObjects[s]->intersect(r, dist)) {
-					Intersection intersection;
-					intersection.distance = dist;
-					intersection.s = sceneObjects[s];
-										
-					pixelColor = getColor(l, r, intersection);
-					//pixelColor = sceneObjects[s]->material.diffuseColor;
-				}
+			Ray r = Ray::createPrimaryRay((double) i, (double) j, c);
+			std::vector<Intersection> intersections = scene.trace(r);
+			Vector3 pixelColor = c.backgroundColor;
+						
+			for (Intersection intersection : intersections) {
+				pixelColor = getColor(scene, r, intersection);
 			}
 
 			png.plot(i, j, pixelColor.x, pixelColor.y, pixelColor.z);
