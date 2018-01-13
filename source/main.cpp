@@ -69,10 +69,10 @@ main () {
 
 	Scene scene ("scene.json");
 	
-	pngwriter png (scene.camera.screenWidth, scene.camera.screenHeight, 0, "test.png");
+	pngwriter png (scene.camera.screenSize.x, scene.camera.screenSize.y, 0, "test.png");
 
-	for (int i = 1; i <= scene.camera.screenWidth; i++) {
-		for (int j = 1; j <= scene.camera.screenHeight; j++) {
+	for (int i = 1; i <= scene.camera.screenSize.x; i++) {
+		for (int j = 1; j <= scene.camera.screenSize.y; j++) {
 			Ray r = Ray::createPrimaryRay((double) i, (double) j, scene.camera);
 			std::vector<Intersection> intersections = scene.trace(r);
 			glm::dvec3 pixelColor = scene.camera.backgroundColor;

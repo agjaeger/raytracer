@@ -10,6 +10,6 @@
 #include "glm/glm.hpp"
 
 struct Material {
-	glm::vec3 diffuseColor;
+	glm::dvec3 diffuseColor;
 	double albedo;
 };

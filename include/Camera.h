@@ -7,9 +7,8 @@
 class Camera {
 public:
 	int fov;
-	int screenWidth;
-	int screenHeight;
 	
 	Transform transform;
-	glm::vec3 backgroundColor;
+	glm::dvec3 backgroundColor;
+	glm::dvec2 screenSize = glm::dvec2(0);
 };

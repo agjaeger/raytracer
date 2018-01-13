@@ -27,8 +27,8 @@ Scene::Scene (std::string jsonPath) {
 	
 	// Camera
 	camera.fov = jsonObject["scene"]["camera"]["fov"];
-	camera.screenWidth = jsonObject["scene"]["camera"]["renderSize"][0];
-	camera.screenHeight = jsonObject["scene"]["camera"]["renderSize"][1];
+	camera.screenSize.x = jsonObject["scene"]["camera"]["renderSize"][0];
+	camera.screenSize.y = jsonObject["scene"]["camera"]["renderSize"][1];
 	camera.backgroundColor = glm::dvec3(
 		jsonObject["scene"]["camera"]["backgroundColor"][0],
 		jsonObject["scene"]["camera"]["backgroundColor"][1],
