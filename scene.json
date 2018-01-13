@@ -59,7 +59,7 @@
 				},
 				
 				"material": {
-					"albedo": 0.9,
+					"albedo": 0.5,
 					"diffuse": [1.0, 0.5, 0.75]
 				}
 			}		

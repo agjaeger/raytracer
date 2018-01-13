@@ -4,11 +4,16 @@
 #include <string> 
 #include <time.h>
 
+#include "pngwriter/pngwriter.h"
+
+#include "glfw/glfw3.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/constants.hpp"
-#include "pngwriter/pngwriter.h"
 #include "logger/easyloggingpp.h"
 INITIALIZE_EASYLOGGINGPP
+
+#include "PNGRenderer.h"
+#include "OpenGLRenderer.h"
 
 #include "Material.h"
 #include "Ray.h"
@@ -70,10 +75,9 @@ main () {
 
 	Scene scene ("scene.json");
 	
-	pngwriter png (scene.camera.screenSize.x, scene.camera.screenSize.y, 0, "test.png");
-
-	for (int i = 1; i <= scene.camera.screenSize.x; i++) {
-		for (int j = 1; j <= scene.camera.screenSize.y; j++) {
+	std::vector<float> pixels; 
+	for (int j = 0; j < scene.camera.screenSize.y; j++) {
+		for (int i = 0; i < scene.camera.screenSize.x; i++) {
 			Ray r = Ray::createPrimaryRay((double) i, (double) j, scene.camera);
 			glm::dvec3 pixelColor = scene.camera.backgroundColor;
 			
@@ -87,14 +91,34 @@ main () {
 			if (closest.distance >= 0 && closest.distance < 900000.0)
 				pixelColor = getColor(scene, r, closest);
 
-			png.plot(i, j, pixelColor.x, pixelColor.y, pixelColor.z);
+			pixels.push_back(pixelColor.x);
+			pixels.push_back(pixelColor.y);
+			pixels.push_back(pixelColor.z);
 		}
 	}
-
-	png.close();
-
+	
+	float* pixelData = pixels.data();
+	
+	//~ PNGRenderer pngRenderer (
+		//~ glm::vec2(scene.camera.screenSize.x, scene.camera.screenSize.y), 
+		//~ "test.png"
+	//~ );
+	//~ pngRenderer.render(pixelData);
+	//~ pngRenderer.close();
+	
 	clock_t appDeltaTime = clock() - appStartTime;
 	LOG(INFO) << "Application Run Length:" << " " << (float) appDeltaTime / CLOCKS_PER_SEC << " " << "seconds";
+
+	//~ glm::vec2 screenSize (1920, 1080);
+	//~ glm::vec2 textureSize (1920, 1080);
+
+	//~ OpenGLRenderer oglRenderer (screenSize, "customApp");
+		
+	//~ while (!glfwWindowShouldClose(oglRenderer.window)) {	
+		//~ oglRenderer.render(pixelData, textureSize);
+	//~ }
+	
+
 
 	return 0;
 }
