@@ -16,11 +16,11 @@
 class Plane : public SceneObject {
 
 public:
-	Plane(Transform t, Material m, Vector3 n);
+	Plane(Transform t, Material m, glm::dvec3 n);
 
 	bool intersect(Ray r, double &distOut);
-	Vector3 surfaceNormal(Vector3 surfacePoint);
+	glm::dvec3 surfaceNormal(glm::dvec3 surfacePoint);
 
 public:
-	Vector3 normal;
+	glm::dvec3 normal;
 };

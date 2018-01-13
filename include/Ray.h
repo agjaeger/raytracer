@@ -7,19 +7,16 @@
 
 #pragma once
 
-#include <cmath>
-
-#include "Vector3.h"
-#include "MathUtils.h"
+#include "glm/glm.hpp"
 #include "Camera.h"
 
 class Ray {
 public:
-	Ray(Vector3 origin, Vector3 direction);
+	Ray(glm::dvec3 origin, glm::dvec3 direction);
 	
 	static Ray createPrimaryRay(double x, double y, Camera c);
 	
 public:
-	Vector3 origin;
-	Vector3 direction;
+	glm::dvec3 origin;
+	glm::dvec3 direction;
 };

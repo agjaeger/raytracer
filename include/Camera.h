@@ -1,13 +1,15 @@
 
 #pragma once
 
-#include "Vector3.h"
+#include "glm/glm.hpp"
+#include "Transform.h"
 
-struct Camera {
+class Camera {
+public:
 	int fov;
-	
 	int screenWidth;
 	int screenHeight;
 	
-	Vector3 backgroundColor;
+	Transform transform;
+	glm::vec3 backgroundColor;
 };

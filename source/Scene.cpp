@@ -11,13 +11,13 @@ Scene::Scene (std::string jsonPath) {
 	jsonStream >> jsonObject;
 	
 	// Light
-	light.direction = Vector3(
+	light.direction = glm::dvec3 (
 		jsonObject["scene"]["light"]["direction"][0],
 		jsonObject["scene"]["light"]["direction"][1],
 		jsonObject["scene"]["light"]["direction"][2]
 	);
 	
-	light.color = Vector3(
+	light.color = glm::dvec3 (
 		jsonObject["scene"]["light"]["color"][0],
 		jsonObject["scene"]["light"]["color"][1],
 		jsonObject["scene"]["light"]["color"][2]	
@@ -29,7 +29,7 @@ Scene::Scene (std::string jsonPath) {
 	camera.fov = jsonObject["scene"]["camera"]["fov"];
 	camera.screenWidth = jsonObject["scene"]["camera"]["renderSize"][0];
 	camera.screenHeight = jsonObject["scene"]["camera"]["renderSize"][1];
-	camera.backgroundColor = Vector3(
+	camera.backgroundColor = glm::dvec3(
 		jsonObject["scene"]["camera"]["backgroundColor"][0],
 		jsonObject["scene"]["camera"]["backgroundColor"][1],
 		jsonObject["scene"]["camera"]["backgroundColor"][2]
@@ -39,24 +39,24 @@ Scene::Scene (std::string jsonPath) {
 	for (auto jsonSceneObject : jsonObject["scene"]["objects"]) {
 		Material m;
 		m.albedo = jsonSceneObject["material"]["albedo"];
-		m.diffuseColor = Vector3 (
+		m.diffuseColor = glm::dvec3 (
 			jsonSceneObject["material"]["diffuse"][0],
 			jsonSceneObject["material"]["diffuse"][1],
 			jsonSceneObject["material"]["diffuse"][2]
 		);
 		
 		Transform t;
-		t.position = Vector3(
+		t.position = glm::dvec3 (
 			jsonSceneObject["transform"]["position"][0],
 			jsonSceneObject["transform"]["position"][1],
 			jsonSceneObject["transform"]["position"][2]			
 		);
-		t.rotation = Vector3(
+		t.rotation = glm::dvec3 (
 			jsonSceneObject["transform"]["rotation"][0],
 			jsonSceneObject["transform"]["rotation"][1],
 			jsonSceneObject["transform"]["rotation"][2]			
 		);
-		t.scale = Vector3(
+		t.scale = glm::dvec3 (
 			jsonSceneObject["transform"]["scale"][0],
 			jsonSceneObject["transform"]["scale"][1],
 			jsonSceneObject["transform"]["scale"][2]			
@@ -68,7 +68,7 @@ Scene::Scene (std::string jsonPath) {
 		} 
 		
 		else if (jsonSceneObject["primitive"] == "plane") {
-			Vector3 n = Vector3(
+			glm::dvec3 n = glm::dvec3 (
 				jsonSceneObject["normal"][0],
 				jsonSceneObject["normal"][1],
 				jsonSceneObject["normal"][2]

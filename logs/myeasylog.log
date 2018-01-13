@@ -7,3 +7,8 @@
 2018-01-12 02:00:16,122 INFO  [default] Alex's Raytracer v0.0.1
 2018-01-12 02:00:16,122 INFO  [default] Reading scene file located at scene.json
 2018-01-12 02:00:18,102 INFO  [default] Application Run Length: 1.97851 seconds
+2018-01-12 19:33:57,617 INFO  [default] Alex's Raytracer v0.0.1
+2018-01-12 19:33:57,618 INFO  [default] Reading scene file located at scene.json
+2018-01-12 19:34:16,955 INFO  [default] Alex's Raytracer v0.0.1
+2018-01-12 19:34:16,955 INFO  [default] Reading scene file located at scene.json
+2018-01-12 19:34:19,146 INFO  [default] Application Run Length: 2.18905 seconds

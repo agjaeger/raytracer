@@ -4,7 +4,7 @@
 Plane::Plane (
 	Transform t,
 	Material m,
-	Vector3 normal
+	glm::dvec3 normal
 ) {
 	this->transform = t;
 	this->normal = normal;
@@ -18,13 +18,13 @@ Plane::intersect (
 ) {
 	distOut = -1.0;
 	
-	double denom = Vector3::dot(this->normal, r.direction);
+	double denom = glm::dot(this->normal, r.direction);
 
 	if (denom <= 1e-6)
 		return false;
 
-	Vector3 delta = this->transform.position - r.origin;
-	double deltaDistance = Vector3::dot(delta, this->normal) / denom;
+	glm::dvec3 delta = this->transform.position - r.origin;
+	double deltaDistance = glm::dot(delta, this->normal) / denom;
 
 	if (deltaDistance >= 0.0) {
 		distOut = deltaDistance;
@@ -34,10 +34,10 @@ Plane::intersect (
 	return false;
 }
 
-Vector3
+glm::dvec3
 Plane::surfaceNormal (
-	Vector3 surfacePoint
+	glm::dvec3 surfacePoint
 ) {
-	return this->normal * -1;
+	return this->normal * -1.0;
 }
 

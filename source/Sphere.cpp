@@ -20,10 +20,10 @@ Sphere::intersect (
 ) {
 	distOut = -1.0;
 	
-	Vector3 dist = this->transform.position - ray.origin;
+	glm::dvec3 dist = this->transform.position - ray.origin;
 
-	double adjSideLength = Vector3::dot(dist, ray.direction);
-	double oppSideLength = Vector3::dot(dist, dist) - (adjSideLength*adjSideLength);
+	double adjSideLength = glm::dot(dist, ray.direction);
+	double oppSideLength = glm::dot(dist, dist) - (adjSideLength*adjSideLength);
 	double radiusSquared = this->radius * this->radius;
 
 	if (adjSideLength < 0)
@@ -50,9 +50,9 @@ Sphere::intersect (
 	return true;
 }
 
-Vector3
+glm::dvec3
 Sphere::surfaceNormal (
-	Vector3 surfacePoint
+	glm::dvec3 surfacePoint
 ) {
-	return (surfacePoint - this->transform.position).normalize();
+	return glm::normalize(surfacePoint - this->transform.position);
 }

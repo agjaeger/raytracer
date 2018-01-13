@@ -1,24 +1,11 @@
 
 #pragma once
 
-#include "Vector3.h"
+#include "glm/glm.hpp"
 
-class Transform {
+class Transform {	
 public:
-	Transform();
-	
-	Transform(
-		Vector3 position
-	);
-
-	Transform(
-		Vector3 position, 
-		Vector3 rotation, 
-		Vector3 scale
-	);
-	
-public:
-	Vector3 position;
-	Vector3 rotation;
-	Vector3 scale;
+	glm::dvec3 position = glm::dvec3(0.0);
+	glm::dvec3 rotation = glm::dvec3(0.0);
+	glm::dvec3 scale = glm::dvec3(0.0);
 };

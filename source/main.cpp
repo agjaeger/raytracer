@@ -4,32 +4,31 @@
 #include <string> 
 #include <time.h>
 
-#include <pngwriter.h>
+#include "glm/glm.hpp"
+#include "glm/gtc/constants.hpp"
+#include "pngwriter/pngwriter.h"
 #include "logger/easyloggingpp.h"
 INITIALIZE_EASYLOGGINGPP
 
 #include "Material.h"
 #include "Ray.h"
-#include "Vector3.h"
-#include "MathUtils.h"
 
 #include "Scene.h"
 #include "Intersection.h"
 #include "SceneObject.h"
 #include "Plane.h"
 #include "Sphere.h"
-
 #include "Light.h"
 
-Vector3
+glm::dvec3
 getColor (
 	Scene scene,
 	Ray primaryRay,
 	Intersection intersection
 ) {
-	Vector3 hitPoint = primaryRay.origin + (primaryRay.direction * intersection.distance);
-	Vector3 surfaceNormal = intersection.s->surfaceNormal(hitPoint);
-	Vector3 directionToLight = scene.light.direction.normalize() * -1.0;
+	glm::dvec3 hitPoint = primaryRay.origin + (primaryRay.direction * intersection.distance);
+	glm::dvec3 surfaceNormal = intersection.s->surfaceNormal(hitPoint);
+	glm::dvec3 directionToLight = glm::normalize(scene.light.direction) * -1.0;
 	
 	Ray shadowRay (
 		hitPoint + (surfaceNormal * scene.shadowBias), 
@@ -44,10 +43,10 @@ getColor (
 	if (inLight)
 		lightIntensity = scene.light.intensity;
 		
-	double lightPower = (Vector3::dot(surfaceNormal, directionToLight)) * lightIntensity;	
-	double lightReflected = intersection.s->material.albedo / MathUtils::PI;
+	double lightPower = (glm::dot(surfaceNormal, directionToLight)) * lightIntensity;	
+	double lightReflected = intersection.s->material.albedo / glm::pi<double>();
 	
-	Vector3 color = intersection.s->material.diffuseColor;
+	glm::dvec3 color = intersection.s->material.diffuseColor;
 	color = color * scene.light.color;
 	color = color * lightPower;
 	color = color * lightReflected;
@@ -76,7 +75,7 @@ main () {
 		for (int j = 1; j <= scene.camera.screenHeight; j++) {
 			Ray r = Ray::createPrimaryRay((double) i, (double) j, scene.camera);
 			std::vector<Intersection> intersections = scene.trace(r);
-			Vector3 pixelColor = scene.camera.backgroundColor;
+			glm::dvec3 pixelColor = scene.camera.backgroundColor;
 						
 			for (Intersection intersection : intersections) {
 				pixelColor = getColor(scene, r, intersection);

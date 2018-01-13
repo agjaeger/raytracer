@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "Vector3.h"
+#include "glm/glm.hpp"
 
 struct Material {
-	Vector3 diffuseColor;
+	glm::vec3 diffuseColor;
 	double albedo;
 };

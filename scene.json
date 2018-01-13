@@ -12,8 +12,9 @@
 			"intensity": 10.0
 		},
 		
-		"objects": [
+		"objects": [			
 			{
+				"id": 439,
 				"primitive": "plane",
 				"normal": [0.0, 0.75, 0.0],
 				
@@ -30,6 +31,7 @@
 			},
 			
 			{
+				"id": 321,
 				"primitive": "sphere",
 				"radius": 0.2,
 				
@@ -46,6 +48,7 @@
 			},
 			
 			{
+				"id": 123,
 				"primitive": "sphere",
 				"radius": 1.0,
 				

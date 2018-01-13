@@ -7,10 +7,8 @@
 
 #pragma once
 
-#include "Vector3.h"
-
 struct Light {
-	Vector3 direction;
-	Vector3 color;
+	glm::dvec3 direction;
+	glm::dvec3 color;
 	double intensity;
 };
