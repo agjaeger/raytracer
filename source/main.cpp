@@ -35,7 +35,8 @@ getColor (
 		directionToLight
 	);
 	
-	std::vector<Intersection> intersections = scene.trace(shadowRay);
+	Intersection closest;
+	std::vector<Intersection> intersections = scene.trace(shadowRay, closest);
 	bool inLight = intersections.empty();
 	
 	double lightIntensity = 0.0;
@@ -74,12 +75,17 @@ main () {
 	for (int i = 1; i <= scene.camera.screenSize.x; i++) {
 		for (int j = 1; j <= scene.camera.screenSize.y; j++) {
 			Ray r = Ray::createPrimaryRay((double) i, (double) j, scene.camera);
-			std::vector<Intersection> intersections = scene.trace(r);
 			glm::dvec3 pixelColor = scene.camera.backgroundColor;
+			
+			Intersection closest;
+			std::vector<Intersection> intersections = scene.trace(r, closest);
 						
 			for (Intersection intersection : intersections) {
 				pixelColor = getColor(scene, r, intersection);
 			}
+	
+			if (closest.distance >= 0 && closest.distance < 900000.0)
+				pixelColor = getColor(scene, r, closest);
 
 			png.plot(i, j, pixelColor.x, pixelColor.y, pixelColor.z);
 		}

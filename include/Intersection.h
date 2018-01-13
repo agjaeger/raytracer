@@ -5,6 +5,7 @@
 
 class Intersection {
 public:
+	Intersection();
 	Intersection(double dist, SceneObject *s);
 	
 	bool operator< (const Intersection &rhs);	

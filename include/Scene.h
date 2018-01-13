@@ -26,7 +26,7 @@ public:
 	void setLight(Light l);
 	void setCamera(Camera c);
 	
-	std::vector<Intersection> trace(Ray r);
+	std::vector<Intersection> trace(Ray r, Intersection &closestOut);
 	void render();
 
 public:

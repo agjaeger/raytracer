@@ -1,6 +1,11 @@
 
 #include "Intersection.h"
 
+Intersection::Intersection () {
+	this->distance = -1.0;
+	this->s = NULL;
+}
+
 Intersection::Intersection (
 	double dist, 
 	SceneObject *s

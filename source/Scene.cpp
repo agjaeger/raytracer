@@ -79,8 +79,13 @@ Scene::Scene (std::string jsonPath) {
 }
 
 std::vector<Intersection>
-Scene::trace (Ray r) {
+Scene::trace (
+	Ray r,
+	Intersection &closestOut
+) {
 	std::vector<Intersection> intersections;
+	
+	Intersection closest (1000000.0, new Sphere());
 	
 	for (int s = 0; s < this->objects.size(); s++) {
 		double dist;
@@ -90,11 +95,16 @@ Scene::trace (Ray r) {
 				this->objects[s]
 			);
 			
+			if (intersection.distance < closest.distance) {
+				closest.distance = intersection.distance;
+				closest.s = this->objects[s];
+			}
+			
 			intersections.push_back(intersection);
 		}
 	}
 	
-	//std::sort(intersections.begin(), intersections.end());
+	closestOut = closest;
 	
 	return intersections;
 }
