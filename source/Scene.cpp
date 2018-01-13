@@ -94,7 +94,7 @@ Scene::trace (Ray r) {
 		}
 	}
 	
-	std::sort(intersections.begin(), intersections.end());
+	//std::sort(intersections.begin(), intersections.end());
 	
 	return intersections;
 }
